@@ -1,30 +1,13 @@
-import * as React from "react";
-import { graphql } from "gatsby";
-// markup
-const IndexPage = ({ data }) => {
-  React.useEffect(() => {
-    console.log(data);
-  }, [data]);
-  return (
-    <main>
-      <p className="text-red-700">hola</p>
-    </main>
-  );
-};
+import React from "react";
+import { useQuery } from "@apollo/client";
+import { CommitsQuery } from "../queries/CommitsQuery";
 
-export const query = graphql`
-  query {
-    github {
-      viewer {
-        repositories(first: 50) {
-          nodes {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`;
+const IndexPage = () => {
+  const { loading, error, data } = useQuery(CommitsQuery);
+  console.log(data);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
+  return <div>Index</div>;
+};
 
 export default IndexPage;
