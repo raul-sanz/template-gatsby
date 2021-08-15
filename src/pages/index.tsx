@@ -1,12 +1,30 @@
-import * as React from "react"
-
+import * as React from "react";
+import { graphql } from "gatsby";
 // markup
-const IndexPage = () => {
+const IndexPage = ({ data }) => {
+  React.useEffect(() => {
+    console.log(data);
+  }, [data]);
   return (
-    <main >
+    <main>
       <p className="text-red-700">hola</p>
     </main>
-  )
-}
+  );
+};
 
-export default IndexPage
+export const query = graphql`
+  query {
+    github {
+      viewer {
+        repositories(first: 50) {
+          nodes {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+export default IndexPage;
