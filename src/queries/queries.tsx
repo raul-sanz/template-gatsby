@@ -11,6 +11,15 @@ export const CommitsQuery = gql`
                 edges {
                   node {
                     messageHeadline
+                    commitUrl
+                    abbreviatedOid
+                    committedDate
+                    author{
+                      user{
+                        login
+                        avatarUrl
+                      }
+                    }
                   }
                 }
               }
@@ -18,6 +27,15 @@ export const CommitsQuery = gql`
           }
         }
       }
+    }
+  }
+`;
+export const BasicInfoQuery = gql`
+  query BasicInfoQuery {
+    viewer {
+      login
+      bio
+      avatarUrl
     }
   }
 `;
